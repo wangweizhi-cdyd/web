@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>计算器</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <!-- 计算器主体 -->
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs">
+        <!-- 数字键盘 -->
+        <div class="grid grid-cols-4 gap-2 mb-4">
+            <!-- 按钮代码 -->
+        </div>
+        
+        <!-- 运算符 -->
+        <div class="flex justify-center space-x-2 mb-4">
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300">+</button>
+            <button class="border-2 border-blue-500 px-3 py-1 rounded-md hover:bg-blue-50">×</button>
+            <button class="border-2 border-red-500 px-3 py-1 rounded-md hover:bg-red-50">-</button>
+            <button class="border-2 border-green-500 px-3 py-1 rounded-md hover:bg-green-50">÷</button>
+        </div>
+        
+        <!-- 等于按钮 -->
+        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 border-2 border-blue-200">=</button>
+    </div>
+
+    <!-- 计算历史记录 -->
+    <div id="history" class="bg-gray-100 p-4 rounded-lg shadow"></div>
+</body>
+</html>
