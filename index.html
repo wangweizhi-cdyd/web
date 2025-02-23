@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
-    <title>计算器</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* 自定义一些样式，让输入框更美观 */
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-    </style>
+    <title>2025年2月23日全球科技新闻Top 10</title>
 </head>
+<body style="background-color: #ffcccc; color: #333333; font-family: Arial, sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <!-- 标题 -->
+        <h1 style="color: #ff6666; font-size: 48px; text-align: center; margin-bottom: 30px;">全球领先！2025年2月23日科技创新成果Top 10</h1>
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-    <!-- 计算器主体 -->
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs">
-        <!-- 输入框 -->
-        <input type="text" id="input" readonly>
-        <!-- 数字键盘 -->
-        <div class="grid grid-cols-4 gap-2 mb-4">
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('7')">7</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('8')">8</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('9')">9</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('/')">÷</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('4')">4</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('5')">5</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('6')">6</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('*')">×</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('1')">1</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('2')">2</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('3')">3</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('-')">-</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('0')">0</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('.')">.</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="calculate()">=</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('+')">+</button>
+        <!-- 前言 -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <p>让我们共同见证这10项改变世界的技术创新成果！</p>
         </div>
 
-        <!-- 运算符 -->
-        <div class="flex justify-center space-x-2 mb-4">
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('+')">+</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('*')">×</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('-')">-</button>
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('/')">÷</button>
+        <!-- 新闻条目1 -->
+        <div style="margin-top: 20px; border-left: 5px solid #ff6666; padding-left: 20px;">
+            <h3 style="color: #ff6666; margin-bottom: 15px;">量子计算新突破：谷歌发布72位量子计算机</h3>
+            <p>最新消息！量子计算领域再下一台阶，全球领先企业谷歌宣布推出新一代72位量子计算机。</p>
         </div>
 
-        <!-- 等于按钮 -->
-        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 border-2 border-blue-200"
-            onclick="calculate()">=</button>
+        <!-- 新闻条目2 -->
+        <div style="margin-top: 20px; border-left: 5px solid #66ff66; padding-left: 20px;">
+            <h3 style="color: #66ff66; margin-bottom: 15px;">AI生成图像：微软发布突破性技术</h3>
+            <p>微软研究人员开发出一种革命性的AI算法，能够直接从文本描述中生成高质量的图像。</p>
+        </div>
+
+        <!-- 新闻条目3 -->
+        <div style="margin-top: 20px; border-left: 5px solid #6666ff; padding-left: 20px;">
+            <h3 style="color: #6666ff; margin-bottom: 15px;">基因编辑新进展：科学家成功修复遗传疾病</h3>
+            <p>基因编辑技术取得重大突破！科学家首次在人类身上实现精确的基因修复，有望治愈多种遗传性疾病。</p>
+        </div>
+
+        <!-- 新闻条目4 -->
+        <div style="margin-top: 20px; border-left: 5px solid #ffcc66; padding-left: 20px;">
+            <h3 style="color: #ffcc66; margin-bottom: 15px;">绿色能源革命：特斯拉推出太阳能车顶</h3>
+            <p>环保科技再创新高！特斯拉推出首款太阳能车顶，为车辆提供可持续的能源补给。</p>
+        </div>
+
+        <!-- 新闻条目5 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #ff6666; margin-bottom: 15px;">医疗影像：AI辅助诊断更精准</h3>
+            <p>人工智能在医学领域的应用再创纪录！基于深度学习的AI系统已能在影像诊断中提供高精度帮助。</p>
+        </div>
+
+        <!-- 新闻条目6 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #66ff66; margin-bottom: 15px;">航天科技：新型太空服亮相国际空间站</h3>
+            <p> next-generation spacesuit首次亮相国际空间站，为宇航员提供更多保护和舒适性。</p>
+        </div>
+
+        <!-- 新闻条目7 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #6666ff; margin-bottom: 15px;">农业技术：精准植保系统实现全自动化</h3>
+            <p>现代农业的里程碑！新型精准植保系统通过AI和物联网技术实现全自动化管理。</p>
+        </div>
+
+        <!-- 新闻条目8 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #ffcc66; margin-bottom: 15px;">环保科技：新型可降解塑料问世</h3>
+            <p>可持续发展的重要突破！科学家开发出一种完全可降解的新型塑料材料。</p>
+        </div>
+
+        <!-- 新闻条目9 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #ff6666; margin-bottom: 15px;">教育科技：虚拟现实教室普及</h3>
+            <p>数字时代的重要工具！虚拟现实技术被广泛应用于教育领域，提升学习体验。</p>
+        </div>
+
+        <!-- 新闻条目10 -->
+        <div style="margin-top: 20px; border-left: none; padding-left: 20px;">
+            <h3 style="color: #66ff66; margin-bottom: 15px;">能源 storage：新型电池技术实现突破</h3>
+            <p>清洁能源的关键技术！电池能量密度和循环寿命取得重大进展，推动可持续能源发展。</p>
+        </div>
+
+        <!-- 背景装饰 -->
+        <div style="background-image: url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160' width='100%'><filter id='cyber-path-apply'><feMergeNode in='url(%23ijklmopqrstuvwxz)' inited='url(%23ijklmopqrstuvwxz)'</filter><rect x='50' y='50' width='80' height='80' filter='url(%23cyber-path)' opacity='0.5' fill='none' stroke='%23ff6666' stroke-width='10"/></svg>');
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+        </div>
     </div>
-
-    <!-- 计算历史记录 -->
-    <div id="history" class="bg-gray-100 p-4 rounded-lg shadow">
-        <h3>计算历史记录</h3>
-    </div>
-
-    <script>
-        function appendToInput(value) {
-            document.getElementById('input').value += value;
-        }
-
-        function calculate() {
-            const inputValue = document.getElementById('input').value;
-            try {
-                const result = eval(inputValue);
-                document.getElementById('input').value = result;
-                const historyDiv = document.getElementById('history');
-                const historyEntry = document.createElement('p');
-                historyEntry.textContent = `${inputValue} = ${result}`;
-                historyDiv.appendChild(historyEntry);
-            } catch (error) {
-                document.getElementById('input').value = "Error";
-            }
-        }
-    </script>
 </body>
-
 </html>
