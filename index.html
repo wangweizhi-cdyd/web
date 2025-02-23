@@ -1,31 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <title>计算器</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* 自定义一些样式，让输入框更美观 */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
 </head>
+
 <body class="bg-gray-100 h-screen flex items-center justify-center">
     <!-- 计算器主体 -->
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs">
+        <!-- 输入框 -->
+        <input type="text" id="input" readonly>
         <!-- 数字键盘 -->
         <div class="grid grid-cols-4 gap-2 mb-4">
-            <!-- 按钮代码 -->
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('7')">7</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('8')">8</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('9')">9</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('/')">÷</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('4')">4</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('5')">5</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('6')">6</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('*')">×</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('1')">1</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('2')">2</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('3')">3</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('-')">-</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('0')">0</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('.')">.</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="calculate()">=</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('+')">+</button>
         </div>
-        
+
         <!-- 运算符 -->
         <div class="flex justify-center space-x-2 mb-4">
-            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300">+</button>
-            <button class="border-2 border-blue-500 px-3 py-1 rounded-md hover:bg-blue-50">×</button>
-            <button class="border-2 border-red-500 px-3 py-1 rounded-md hover:bg-red-50">-</button>
-            <button class="border-2 border-green-500 px-3 py-1 rounded-md hover:bg-green-50">÷</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('+')">+</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('*')">×</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('-')">-</button>
+            <button class="bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300" onclick="appendToInput('/')">÷</button>
         </div>
-        
+
         <!-- 等于按钮 -->
-        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 border-2 border-blue-200">=</button>
+        <button class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 border-2 border-blue-200"
+            onclick="calculate()">=</button>
     </div>
 
     <!-- 计算历史记录 -->
-    <div id="history" class="bg-gray-100 p-4 rounded-lg shadow"></div>
+    <div id="history" class="bg-gray-100 p-4 rounded-lg shadow">
+        <h3>计算历史记录</h3>
+    </div>
+
+    <script>
+        function appendToInput(value) {
+            document.getElementById('input').value += value;
+        }
+
+        function calculate() {
+            const inputValue = document.getElementById('input').value;
+            try {
+                const result = eval(inputValue);
+                document.getElementById('input').value = result;
+                const historyDiv = document.getElementById('history');
+                const historyEntry = document.createElement('p');
+                historyEntry.textContent = `${inputValue} = ${result}`;
+                historyDiv.appendChild(historyEntry);
+            } catch (error) {
+                document.getElementById('input').value = "Error";
+            }
+        }
+    </script>
 </body>
+
 </html>
