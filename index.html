@@ -1,137 +1,204 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能计算器</title>
+    <title>炫彩俄罗斯方块</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
         body {
+            background: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: #f0f2f5;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
-
-        .calculator {
-            background: #2c3e50;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            width: 320px;
-            padding: 20px;
+        #game-container {
+            position: relative;
         }
-
-        #display {
-            width: 100%;
-            height: 80px;
-            background: #ecf0f1;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-align: right;
-            padding: 15px;
-            border: none;
-            color: #2c3e50;
+        #game-board {
+            border: 3px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
-
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        button {
-            padding: 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #34495e;
-            color: white;
-        }
-
-        button:active {
-            transform: scale(0.95);
-        }
-
-        .operator {
-            background: #e67e22;
-        }
-
-        .equals {
-            background: #27ae60;
-        }
-
-        .clear {
-            background: #c0392b;
+        #score {
+            color: #fff;
+            font-size: 24px;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" readonly>
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button class="operator" onclick="appendToDisplay('/')">/</button>
-            <button class="operator" onclick="appendToDisplay('*')">×</button>
-            <button class="operator" onclick="appendToDisplay('-')">-</button>
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button class="equals" onclick="calculate()" style="grid-row: span 2">=</button>
-            <button onclick="appendToDisplay('0')" style="grid-column: span 2">0</button>
-            <button onclick="appendToDisplay('00')">00</button>
-        </div>
+    <div id="game-container">
+        <div id="score">得分: 0</div>
+        <canvas id="game-board" width="300" height="600"></canvas>
     </div>
 
-    <script>
-        const display = document.getElementById('display');
+<script>
+const canvas = document.getElementById('game-board');
+const ctx = canvas.getContext('2d');
+const BLOCK_SIZE = 30;
+const COLORS = [
+    '#FF0D72', '#0DC2FF', '#0DFF72', 
+    '#F538FF', '#FF8E0D', '#FFE138', 
+    '#3877FF'
+];
 
-        function appendToDisplay(value) {
-            display.value += value;
-        }
+// 方块形状
+const SHAPES = [
+    [[1,1,1,1]], // I
+    [[1,1,1],[0,1,0]], // T
+    [[1,1,1],[1,0,0]], // L
+    [[1,1,1],[0,0,1]], // J
+    [[1,1],[1,1]], // O
+    [[1,1,0],[0,1,1]], // S
+    [[0,1,1],[1,1,0]]  // Z
+];
 
-        function clearDisplay() {
-            display.value = '';
-        }
+let board = Array(20).fill().map(() => Array(10).fill(0));
+let currentPiece = null;
+let score = 0;
+let gameLoop;
 
-        function calculate() {
-            try {
-                display.value = eval(display.value);
-            } catch (error) {
-                display.value = '错误';
-                setTimeout(clearDisplay, 1000);
+class Piece {
+    constructor() {
+        this.shape = SHAPES[Math.floor(Math.random()*SHAPES.length)];
+        this.color = COLORS[Math.floor(Math.random()*COLORS.length)];
+        this.x = Math.floor(10/2 - this.shape[0].length/2);
+        this.y = 0;
+    }
+}
+
+function drawBoard() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for(let y = 0; y < 20; y++) {
+        for(let x = 0; x < 10; x++) {
+            if(board[y][x]) {
+                ctx.fillStyle = board[y][x];
+                ctx.fillRect(x*BLOCK_SIZE, y*BLOCK_SIZE, BLOCK_SIZE-1, BLOCK_SIZE-1);
             }
         }
+    }
+}
 
-        // 键盘支持
-        document.addEventListener('keydown', (e) => {
-            if (e.key >= '0' && e.key <= '9' || e.key === '.') {
-                appendToDisplay(e.key);
-            } else if (['+', '-', '*', '/'].includes(e.key)) {
-                appendToDisplay(e.key);
-            } else if (e.key === 'Enter') {
-                calculate();
-            } else if (e.key === 'Escape') {
-                clearDisplay();
+function drawPiece() {
+    ctx.fillStyle = currentPiece.color;
+    currentPiece.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if(value) {
+                ctx.fillRect(
+                    (currentPiece.x + x)*BLOCK_SIZE,
+                    (currentPiece.y + y)*BLOCK_SIZE,
+                    BLOCK_SIZE-1, BLOCK_SIZE-1
+                );
             }
         });
-    </script>
+    });
+}
+
+function collision() {
+    return currentPiece.shape.some((row, y) => {
+        return row.some((value, x) => {
+            if(!value) return false;
+            const newX = currentPiece.x + x;
+            const newY = currentPiece.y + y;
+            return newX < 0 || newX >= 10 || newY >= 20 || board[newY][newX];
+        });
+    });
+}
+
+function merge() {
+    currentPiece.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if(value) {
+                board[currentPiece.y + y][currentPiece.x + x] = currentPiece.color;
+            }
+        });
+    });
+}
+
+function rotate() {
+    const rotated = currentPiece.shape[0].map((_, i) =>
+        currentPiece.shape.map(row => row[i]).reverse()
+    );
+    const previousShape = currentPiece.shape;
+    currentPiece.shape = rotated;
+    if(collision()) currentPiece.shape = previousShape;
+}
+
+function clearLines() {
+    let linesCleared = 0;
+    for(let y = 20 - 1; y >= 0; y--) {
+        if(board[y].every(cell => cell)) {
+            board.splice(y, 1);
+            board.unshift(Array(10).fill(0));
+            linesCleared++;
+            y++;
+        }
+    }
+    if(linesCleared) {
+        score += linesCleared * 100;
+        document.getElementById('score').textContent = `得分: ${score}`;
+    }
+}
+
+function gameOver() {
+    cancelAnimationFrame(gameLoop);
+    alert(`游戏结束！得分: ${score}`);
+}
+
+function update() {
+    currentPiece.y++;
+    if(collision()) {
+        currentPiece.y--;
+        merge();
+        clearLines();
+        currentPiece = new Piece();
+        if(collision()) gameOver();
+    }
+}
+
+function control(e) {
+    switch(e.key) {
+        case 'ArrowLeft':
+            currentPiece.x--;
+            if(collision()) currentPiece.x++;
+            break;
+        case 'ArrowRight':
+            currentPiece.x++;
+            if(collision()) currentPiece.x--;
+            break;
+        case 'ArrowDown':
+            currentPiece.y++;
+            if(collision()) currentPiece.y--;
+            break;
+        case 'ArrowUp':
+            rotate();
+            break;
+    }
+    draw();
+}
+
+function draw() {
+    drawBoard();
+    drawPiece();
+}
+
+function gameStart() {
+    currentPiece = new Piece();
+    document.addEventListener('keydown', control);
+    gameLoop = setInterval(() => {
+        update();
+        draw();
+    }, 1000);
+}
+
+// 开始游戏
+gameStart();
+</script>
 </body>
 </html>
