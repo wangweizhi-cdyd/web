@@ -2,60 +2,136 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>2025.2.24 科技速报</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能计算器</title>
     <style>
-        body {
-            background: #f0f2f5;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f2f5;
+        }
+
+        .calculator {
+            background: #2c3e50;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 320px;
             padding: 20px;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .header {
-            background: #1a1a1a;
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
+
+        #display {
+            width: 100%;
+            height: 80px;
+            background: #ecf0f1;
+            border-radius: 10px;
             margin-bottom: 20px;
+            font-size: 2em;
+            text-align: right;
+            padding: 15px;
+            border: none;
+            color: #2c3e50;
         }
-        .news-card {
-            background: white;
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #34495e;
+            color: white;
         }
-        .news-title {
-            color: #2d8cf0;
-            border-left: 4px solid #2d8cf0;
-            padding-left: 10px;
-            margin: 0 0 15px 0;
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .operator {
+            background: #e67e22;
+        }
+
+        .equals {
+            background: #27ae60;
+        }
+
+        .clear {
+            background: #c0392b;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>2025年2月24日</h1>
-            <h2>TOP3 科技新闻简讯</h2>
-        </div>
-
-        <div class="news-card">
-            <h3 class="news-title">量子计算机突破百万量子位</h3>
-            <p>谷歌与中科院联合团队宣布成功构建102万量子位处理器，实现量子霸权新里程碑，化学反应模拟效率提升万倍。</p>
-        </div>
-
-        <div class="news-card">
-            <h3 class="news-title">脑机接口实现双向意识传输</h3>
-            <p>Neuralink发布第三代植入设备，首次完成人类与AI系统的双向数据流交互，截瘫患者可通过意念操控外骨骼行走。</p>
-        </div>
-
-        <div class="news-card">
-            <h3 class="news-title">中国建成全球首个太空电站</h3>
-            <p>天宫能源集团宣布完成地球同步轨道太阳能电站部署，通过微波向西北地区传输清洁电力，年供电量达三峡电站3倍。</p>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="equals" onclick="calculate()" style="grid-row: span 2">=</button>
+            <button onclick="appendToDisplay('0')" style="grid-column: span 2">0</button>
+            <button onclick="appendToDisplay('00')">00</button>
         </div>
     </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendToDisplay(value) {
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = '错误';
+                setTimeout(clearDisplay, 1000);
+            }
+        }
+
+        // 键盘支持
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9' || e.key === '.') {
+                appendToDisplay(e.key);
+            } else if (['+', '-', '*', '/'].includes(e.key)) {
+                appendToDisplay(e.key);
+            } else if (e.key === 'Enter') {
+                calculate();
+            } else if (e.key === 'Escape') {
+                clearDisplay();
+            }
+        });
+    </script>
 </body>
 </html>
